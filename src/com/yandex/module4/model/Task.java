@@ -1,21 +1,28 @@
+package com.yandex.module4.model;
+
+import com.yandex.module4.service.*;
+
 public class Task {
     private String name;
     private String howToDo;
     private int id;
     private Status status;
 
-    Task (String name, String howToDo) {
+    public Task (String name, String howToDo) {
         this.name = name;
         this.howToDo = howToDo;
-        this.id = TaskManager.getCountID();
-        TaskManager.countID++;
         this.status = Status.NEW;
     }
-    Task (String name, String howToDo, Status status) {
+    public Task (String name, String howToDo, Status status) {
         this.name = name;
         this.howToDo = howToDo;
         this.status =status;
     }
+    public Task (String name, String howToDo, Status status, int id) {
+        this(name, howToDo, status);
+        this.id = id;
+    }
+
 
     public String getName () {
         return name;
