@@ -109,7 +109,6 @@ public class TaskManager {
         final SubTask subTask = subTasks.remove(id);
         final Epic epic = epics.get(subTask.getEpic());
         epic.getTasks().remove((Integer) id);
-        subTasks.remove(id);
         changeStatus(epic);
     }
 
@@ -129,6 +128,10 @@ public class TaskManager {
     }
 
     private void changeStatus(Epic epic) {
+        if (epic.getTasks().size() == 0) {
+            epic.setStatus(Status.NEW);
+            return;
+        }
         int count = 0;
         for (Integer i : epic.getTasks()) {
             final Status status = subTasks.get(i).getStatus();

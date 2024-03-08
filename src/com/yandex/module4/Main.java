@@ -11,6 +11,7 @@ public class Main {
         Task t2 = new Task("Спать", "Идти спать");
         Epic e1 = new Epic("Работать", "Работать работу");
         Epic e2 = new Epic("Покупки", "Идти в магазин");
+        Epic e3 = new Epic("Покупки", "Идти в магазин");
         tm.addTask(t1);
         tm.addTask(t2);
         System.out.println(t1.getId());
@@ -49,5 +50,13 @@ public class Main {
         System.out.println("-----");
         tm.getSubTasks();
         System.out.println("-----");
+        System.out.println(e3.getStatus());
+        tm.addEpic(e3);
+        SubTask st6 = new SubTask("Купить сахар", "в магазине", e3, Status.DONE, 10);
+        tm.addSubTask(st6);
+        System.out.println(e3.getStatus());
+        System.out.println(st6.getId());
+        tm.removeSubTaskWithID(10);
+        System.out.println(e3.getStatus());
        }
 }
