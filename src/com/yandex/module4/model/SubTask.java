@@ -1,7 +1,5 @@
 package com.yandex.module4.model;
 
-import com.yandex.module4.service.*;
-
 public class SubTask extends Task {
     private final int epic;
 

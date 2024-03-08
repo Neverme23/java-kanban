@@ -23,29 +23,31 @@ public class Main {
         tm.addSubTask(st1);
         tm.addSubTask(st2);
         tm.addSubTask(st3);
-        System.out.println(tm.printTasks());
-        System.out.println(tm.printEpics());
-        System.out.println(tm.printSubTasks());
+        System.out.println(tm.getTasks());
+        System.out.println(tm.getEpics());
+        System.out.println(tm.getSubTasks());
         Task t3 = new Task("Стоять","Стоять на улице", Status.IN_PROGRESS, 2);
         tm.changeTask(t3);
-        System.out.println(tm.printTasks());
+        System.out.println(tm.getTasks());
         System.out.println(t3.getStatus());
-        System.out.println(tm.printTasks());
+        System.out.println(tm.getTasks());
         System.out.println(tm.getTaskWithID(2).getName());
-        SubTask st4 = new SubTask("Купить воды", "Взять в дар", e2, Status.IN_PROGRESS, 7);
+        SubTask st4 = new SubTask("Купить воды", "Взять в дар", e2, Status.NEW, 7);
+        SubTask st5 = new SubTask("Купить сахар", "в магазине", e2, Status.DONE, 7);
         tm.changeSubTask(st4);
+        tm.addSubTask(st5);
         System.out.println(st4.getStatus());
         System.out.println(e2.getStatus());
         System.out.println(tm.getEpicTasks(3));
         tm.removeTaskWithID(2);
-        System.out.println(tm.printTasks());
+        System.out.println(tm.getTasks());
         tm.removeAllTask();
-        System.out.println(tm.printTasks());
+        System.out.println(tm.getTasks());
         tm.removeSubTaskWithID(6);
-        System.out.println(tm.printSubTasks());
+        System.out.println(tm.getSubTasks());
         tm.removeAllEpic();
         System.out.println("-----");
-        tm.printSubTasks();
+        tm.getSubTasks();
         System.out.println("-----");
-    }
+       }
 }

@@ -1,7 +1,5 @@
 package com.yandex.module4.model;
 
-import com.yandex.module4.service.*;
-
 public class Task {
     private String name;
     private String howToDo;

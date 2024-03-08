@@ -1,6 +1,7 @@
 package com.yandex.module4.service;
 
 import com.yandex.module4.model.Epic;
+import com.yandex.module4.model.Status;
 import com.yandex.module4.model.SubTask;
 import com.yandex.module4.model.Task;
 
@@ -34,8 +35,9 @@ public class TaskManager {
     public void addSubTask(SubTask subTask) {
         subTask.setId(countID);
         subTasks.put(subTask.getId(), subTask);
-        epics.get(subTask.getEpic()).addTask(subTask);
-        changeStatus(epics.get(subTask.getEpic()));
+        final Epic epic = epics.get(subTask.getEpic());
+        epic.addTask(subTask);
+        changeStatus(epic);
         countID++;
     }
 
@@ -43,15 +45,15 @@ public class TaskManager {
         return countID;
     }
 
-    public ArrayList<Task> printTasks() {
+    public ArrayList<Task> getTasks() {
         return new ArrayList<>(tasks.values());
     }
 
-    public ArrayList<SubTask> printSubTasks() {
+    public ArrayList<SubTask> getSubTasks() {
         return new ArrayList<>(subTasks.values());
     }
 
-    public ArrayList<Epic> printEpics() {
+    public ArrayList<Epic> getEpics() {
         return new ArrayList<>(epics.values());
     }
 
@@ -104,8 +106,9 @@ public class TaskManager {
     }
 
     public void removeSubTaskWithID(int id) {
-        Epic epic = epics.get(subTasks.get(id).getEpic());
-        epics.get(subTasks.get(id).getEpic()).getTasks().remove((Integer) id);
+        final SubTask subTask = subTasks.remove(id);
+        final Epic epic = epics.get(subTask.getEpic());
+        epic.getTasks().remove((Integer) id);
         subTasks.remove(id);
         changeStatus(epic);
     }
@@ -126,18 +129,19 @@ public class TaskManager {
     }
 
     private void changeStatus(Epic epic) {
-        int doneCount = 0;
-        int inProgressCount = 0;
+        int count = 0;
         for (Integer i : epic.getTasks()) {
-            if (subTasks.get(i).getStatus() == Status.DONE) {
-                doneCount++;
-            } else if (subTasks.get(i).getStatus() == Status.IN_PROGRESS) {
-                inProgressCount++;
+            final Status status = subTasks.get(i).getStatus();
+            if (status == Status.DONE) {
+                count++;
+            } else if (status == Status.IN_PROGRESS) {
+                epic.setStatus(Status.IN_PROGRESS);
+                return;
             }
         }
-        if (doneCount == epic.getTasks().size()) {
+        if (count == epic.getTasks().size()) {
             epic.setStatus(Status.DONE);
-        } else if (inProgressCount > 0) {
+        } else if (count  > 0) {
             epic.setStatus(Status.IN_PROGRESS);
         } else {
             epic.setStatus(Status.NEW);
