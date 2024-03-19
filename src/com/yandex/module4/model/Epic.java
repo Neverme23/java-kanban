@@ -8,7 +8,14 @@ public class Epic extends Task {
         super(name, howToDo);
         tasks = new ArrayList<>();
     }
-
+    public Epic(Epic epic) {
+        super(epic);
+        tasks = new ArrayList<>();
+    }
+    public Epic(String name, String howToDo,Status status, int id) {
+        super(name, howToDo, status, id);
+        tasks = new ArrayList<>();
+    }
     public ArrayList <Integer> getTasks () {
         return tasks;
     }

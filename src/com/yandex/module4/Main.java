@@ -3,10 +3,12 @@ package com.yandex.module4;
 import com.yandex.module4.model.*;
 import com.yandex.module4.service.*;
 
+import java.util.Arrays;
+
 public class Main {
 
     public static void main(String[] args) {
-        TaskManager tm = new TaskManager();
+        InMemoryTaskManager tm = new InMemoryTaskManager();
         Task t1 = new Task("Гялуть", "Идти гулять");
         Task t2 = new Task("Спать", "Идти спать");
         Epic e1 = new Epic("Работать", "Работать работу");
@@ -27,6 +29,11 @@ public class Main {
         System.out.println(tm.getTasks());
         System.out.println(tm.getEpics());
         System.out.println(tm.getSubTasks());
+        System.out.println(Arrays.toString(tm.getHistory().toArray()));
+        System.out.println(tm.getTaskWithID(1));
+        System.out.println(tm.getEpicWithID(3));
+        System.out.println(tm.getSubTaskWithID(5));
+        System.out.println(Arrays.toString(tm.getHistory().toArray()));
         Task t3 = new Task("Стоять","Стоять на улице", Status.IN_PROGRESS, 2);
         tm.changeTask(t3);
         System.out.println(tm.getTasks());
@@ -58,5 +65,7 @@ public class Main {
         System.out.println(st6.getId());
         tm.removeSubTaskWithID(10);
         System.out.println(e3.getStatus());
+        System.out.println(tm.getEpicWithID(e3.getId()));
+        System.out.println(Arrays.toString(tm.getHistory().toArray()));
        }
 }

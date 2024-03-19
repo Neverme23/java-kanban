@@ -1,5 +1,7 @@
 package com.yandex.module4.model;
 
+
+
 public class Task {
     private String name;
     private String howToDo;
@@ -10,6 +12,12 @@ public class Task {
         this.name = name;
         this.howToDo = howToDo;
         this.status = Status.NEW;
+    }
+    public Task (Task task) {
+        this.name = task.name;
+        this.howToDo = task.howToDo;
+        this.status = task.status;
+        this.id = task.id;
     }
     public Task (String name, String howToDo, Status status) {
         this.name = name;
