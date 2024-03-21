@@ -1,41 +1,33 @@
 package com.yandex.module4.service;
 
-import com.yandex.module4.model.Epic;
-import com.yandex.module4.model.SubTask;
 import com.yandex.module4.model.Task;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private ArrayList<Task> historyTasks;
+    private List<Task> historyTasks;
+    private final static int MAX_VALUE = 10;
+
 
     InMemoryHistoryManager(){
-        historyTasks = new ArrayList<>();
+        historyTasks = new LinkedList<>();
     }
     @Override
     public void add(Task task) {
-        Task copyTask = new Task(task);
-        historyTasks.add(copyTask);
-        checkHistory();
+        if (task != null) {
+            historyTasks.add(task);
+            checkHistory();
+        }
     }
-    public void add(Epic epic) {
-        Epic copyEpic = new Epic(epic);
-        historyTasks.add(copyEpic);
-        checkHistory();
-    }
-    public void add(SubTask subTask) {
-        SubTask copySubTask = new SubTask(subTask);
-        historyTasks.add(copySubTask);
-        checkHistory();
-    }
+
     @Override
-    public ArrayList<Task> getHistory() {
-        return historyTasks;
+    public List<Task> getHistory() {
+        return List.copyOf(historyTasks);
     }
     public void checkHistory() {
-        if (historyTasks.size() > 10) {
+        if (historyTasks.size() > MAX_VALUE) {
             historyTasks.remove(0);
-            historyTasks.trimToSize();
         }
     }
 }

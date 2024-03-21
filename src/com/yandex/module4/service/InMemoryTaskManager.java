@@ -4,22 +4,23 @@ import com.yandex.module4.model.Epic;
 import com.yandex.module4.model.Status;
 import com.yandex.module4.model.SubTask;
 import com.yandex.module4.model.Task;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
     private int countID = 1;
-    private HashMap<Integer, Task> tasks;
-    private HashMap<Integer, SubTask> subTasks;
-    private HashMap<Integer, Epic> epics;
-    private InMemoryHistoryManager inMemoryHistoryManager;
+    private Map<Integer, Task> tasks;
+    private Map<Integer, SubTask> subTasks;
+    private Map<Integer, Epic> epics;
+    private HistoryManager historyManager;
 
     public InMemoryTaskManager() {
         this.tasks = new HashMap<>();
         this.subTasks = new HashMap<>();
         this.epics = new HashMap<>();
-        inMemoryHistoryManager = (InMemoryHistoryManager)Managers.getDefaultHistory();
+        historyManager = Managers.getDefaultHistory();
     }
 
     @Override
@@ -52,17 +53,17 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return new ArrayList<>(tasks.values());
     }
 
     @Override
-    public ArrayList<SubTask> getSubTasks() {
+    public List<SubTask> getSubTasks() {
         return new ArrayList<>(subTasks.values());
     }
 
     @Override
-    public ArrayList<Epic> getEpics() {
+    public List<Epic> getEpics() {
         return new ArrayList<>(epics.values());
     }
 
@@ -106,19 +107,19 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTaskWithID(int id) {
-        inMemoryHistoryManager.add(tasks.get(id));
+        historyManager.add(tasks.get(id));
         return tasks.get(id);
     }
 
     @Override
     public SubTask getSubTaskWithID(int id) {
-        inMemoryHistoryManager.add(subTasks.get(id));
+        historyManager.add(subTasks.get(id));
         return subTasks.get(id);
     }
 
     @Override
     public Epic getEpicWithID(int id) {
-        inMemoryHistoryManager.add(epics.get(id));
+        historyManager.add(epics.get(id));
         return epics.get(id);
     }
 
@@ -144,7 +145,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<SubTask> getEpicTasks(int id) {
+    public List<SubTask> getEpicTasks(int id) {
         ArrayList<SubTask> st = new ArrayList<>();
         for (int i : epics.get(id).getTasks()) {
             st.add(subTasks.get(i));
@@ -176,8 +177,8 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
     @Override
-    public ArrayList<Task> getHistory() {
-        return inMemoryHistoryManager.getHistory();
+    public List<Task> getHistory() {
+        return historyManager.getHistory();
     }
 }
 

@@ -1,10 +1,9 @@
-package com.yandex.module4.Tests;
+package com.yandex.module4.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.yandex.module4.model.Status;
 import com.yandex.module4.model.Task;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class TaskTest {

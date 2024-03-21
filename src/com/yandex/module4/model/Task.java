@@ -1,7 +1,6 @@
 package com.yandex.module4.model;
 
 
-
 public class Task {
     private String name;
     private String howToDo;

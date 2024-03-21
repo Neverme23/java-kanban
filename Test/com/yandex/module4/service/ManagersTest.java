@@ -1,6 +1,5 @@
-package com.yandex.module4.Tests;
+package com.yandex.module4.service;
 
-import com.yandex.module4.service.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

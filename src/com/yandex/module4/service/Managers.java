@@ -1,14 +1,7 @@
 package com.yandex.module4.service;
 
-
-
 final public class Managers {
-    TaskManager taskManager;
-    HistoryManager historyManager;
-
-    public Managers() {
-        this.taskManager = new InMemoryTaskManager();
-        this.historyManager = new InMemoryHistoryManager();
+    private Managers() {
     }
     public static TaskManager getDefault() {
         return new InMemoryTaskManager();
