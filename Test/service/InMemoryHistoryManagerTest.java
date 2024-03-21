@@ -1,9 +1,11 @@
-package com.yandex.module4.service;
+package service;
 
 import com.yandex.module4.model.Epic;
 import com.yandex.module4.model.Status;
 import com.yandex.module4.model.SubTask;
 import com.yandex.module4.model.Task;
+import com.yandex.module4.service.InMemoryTaskManager;
+import com.yandex.module4.service.Managers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,11 +17,11 @@ class InMemoryHistoryManagerTest {
     private  Task task1;
     private Epic epic;
     private  SubTask subTask;
-    private  InMemoryTaskManager inMemoryTaskManager;
+    private InMemoryTaskManager inMemoryTaskManager;
 
     @BeforeEach
     public void beforeEach(){
-        inMemoryTaskManager = (InMemoryTaskManager)Managers.getDefault();
+        inMemoryTaskManager = (InMemoryTaskManager) Managers.getDefault();
         task = new Task("TASK", "howToDo text", Status.NEW);
         task1 = new Task("TASK11111", "howToDo text111", Status.NEW);
         epic = new Epic("EPIC", "howToDo text");

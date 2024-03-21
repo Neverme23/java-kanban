@@ -1,4 +1,4 @@
-package com.yandex.module4.service;
+package model;
 
 import com.yandex.module4.model.Epic;
 import com.yandex.module4.model.Status;
