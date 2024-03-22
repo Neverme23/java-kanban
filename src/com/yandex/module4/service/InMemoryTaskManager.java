@@ -11,10 +11,10 @@ import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
     private int countID = 1;
-    private Map<Integer, Task> tasks;
-    private Map<Integer, SubTask> subTasks;
-    private Map<Integer, Epic> epics;
-    private HistoryManager historyManager;
+    private final Map<Integer, Task> tasks;
+    private final Map<Integer, SubTask> subTasks;
+    private final Map<Integer, Epic> epics;
+    private final HistoryManager historyManager;
 
     public InMemoryTaskManager() {
         this.tasks = new HashMap<>();
@@ -107,20 +107,23 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTaskWithID(int id) {
-        historyManager.add(tasks.get(id));
-        return tasks.get(id);
+        final Task task = tasks.get(id);
+        historyManager.add(task);
+        return task;
     }
 
     @Override
     public SubTask getSubTaskWithID(int id) {
-        historyManager.add(subTasks.get(id));
-        return subTasks.get(id);
+        final SubTask subTask = subTasks.get(id);
+        historyManager.add(subTask);
+        return subTask;
     }
 
     @Override
     public Epic getEpicWithID(int id) {
-        historyManager.add(epics.get(id));
-        return epics.get(id);
+        final Epic epic = epics.get(id);
+        historyManager.add(epic);
+        return epic;
     }
 
     @Override
