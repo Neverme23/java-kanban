@@ -1,9 +1,9 @@
 package com.yandex.module4.service;
 
-public class Node < T > {
+public class Node<T> {
     private T data;
-    private Node < T > next;
-    private Node < T > prev;
+    private Node<T> next;
+    private Node<T> prev;
 
     public Node(T data) {
         this.data = data;
@@ -17,19 +17,19 @@ public class Node < T > {
         this.prev = prev;
     }
 
-    public void setNextNode(Node < T > next) {
+    public void setNextNode(Node<T> next) {
         this.next = next;
     }
 
-    public void setPrevNode(Node < T > prev) {
+    public void setPrevNode(Node<T> prev) {
         this.prev = prev;
     }
 
-    public Node < T > getNext() {
+    public Node<T> getNext() {
         return next;
     }
 
-    public Node < T > getPrev() {
+    public Node<T> getPrev() {
         return prev;
     }
 
