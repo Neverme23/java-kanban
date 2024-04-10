@@ -13,9 +13,9 @@ public class Main {
         Epic e2 = new Epic("Покупки", "Идти в магазин");
         tm.addEpic(e1);
         tm.addEpic(e2);
-        SubTask st1 = new SubTask("Идти на работу", "На транспорте", e1 );
-        SubTask st2 = new SubTask("Идти с работы", "Пешком", e1 );
-        SubTask st3 = new SubTask("работать", "Активно работать работу", e1 );
+        SubTask st1 = new SubTask("Идти на работу", "На транспорте", e1);
+        SubTask st2 = new SubTask("Идти с работы", "Пешком", e1);
+        SubTask st3 = new SubTask("работать", "Активно работать работу", e1);
         tm.addSubTask(st1);
         tm.addSubTask(st2);
         tm.addSubTask(st3);
