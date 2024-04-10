@@ -1,6 +1,6 @@
 package com.yandex.module4.service;
 
-final public class Managers {
+public final class Managers {
     private Managers() {
     }
 
