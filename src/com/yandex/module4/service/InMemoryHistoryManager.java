@@ -54,7 +54,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         result.add(task);
         last.getData();
         while (result.get(count) != last.getData()) {
-            if ((node = node.getNext()) == null ) {
+            if ((node = node.getNext()) == null) {
                 break;
             }
                 task = node.getData();
