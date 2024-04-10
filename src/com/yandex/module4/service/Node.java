@@ -11,7 +11,7 @@ public class Node<T> {
         this.prev = null;
     }
 
-    public Node(T data, Node < T > prev) {
+    public Node(T data, Node<T> prev) {
         this.data = data;
         this.next = null;
         this.prev = prev;
