@@ -184,6 +184,7 @@ public class InMemoryTaskManager implements TaskManager {
             epic.setStatus(Status.NEW);
         }
     }
+
     @Override
     public List<Task> getHistory() {
         return historyManager.getHistory();

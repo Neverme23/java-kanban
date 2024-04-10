@@ -7,55 +7,66 @@ public class Task {
     private int id;
     private Status status;
 
-    public Task (String name, String howToDo) {
+    public Task(String name, String howToDo) {
         this.name = name;
         this.howToDo = howToDo;
         this.status = Status.NEW;
     }
-    public Task (Task task) {
+
+    public Task(Task task) {
         this.name = task.name;
         this.howToDo = task.howToDo;
         this.status = task.status;
         this.id = task.id;
     }
-    public Task (String name, String howToDo, Status status) {
+
+    public Task(String name, String howToDo, Status status) {
         this.name = name;
         this.howToDo = howToDo;
-        this.status =status;
+        this.status = status;
     }
-    public Task (String name, String howToDo, Status status, int id) {
+
+    public Task(String name, String howToDo, Status status, int id) {
         this(name, howToDo, status);
         this.id = id;
     }
 
 
-    public String getName () {
+    public String getName() {
         return name;
     }
-    public void setName (String name) {
+
+    public void setName(String name) {
         this.name = name;
     }
-    public String getHowToDo () {
+
+    public String getHowToDo() {
         return howToDo;
     }
-    public void setHowToDo (String howToDo) {
+
+    public void setHowToDo(String howToDo) {
         this.howToDo = howToDo;
     }
-    public int getId () {
+
+    public int getId() {
         int a = id;
         return a;
     }
-    public void setId (int id) {
+
+    public void setId(int id) {
         this.id = id;
     }
-    public Status getStatus () {
+
+    public Status getStatus() {
         return status;
     }
-    public void setStatus (Status status) {
+
+    public void setStatus(Status status) {
         this.status = status;
     }
+
     @Override
-    public boolean equals (Object obj) {
+    public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
@@ -69,10 +80,9 @@ public class Task {
             return false;
         }
     }
+
     @Override
-    public int hashCode () {
-        return 29*id;
+    public int hashCode() {
+        return 29 * id;
     }
-
-
 }
