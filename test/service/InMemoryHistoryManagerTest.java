@@ -21,9 +21,9 @@ class InMemoryHistoryManagerTest {
     @BeforeEach
     public void beforeEach(){
         inMemoryHistoryManager = Managers.getDefaultHistory();
-        task = new Task("TASK", "howToDo text", Status.NEW);
-        task1 = new Task("TASK11111", "howToDo text111", Status.NEW);
-        epic = new Epic("EPIC", "howToDo text");
+        task = new Task("TASK", "howToDo TASK text", Status.NEW, 1);
+        task1 = new Task("TASK11111", "howToDo TASK text111", Status.NEW, 2);
+        epic = new Epic("EPIC", "howToDo EPIC text", Status.NEW, 3);
     }
 
     @Test
@@ -31,7 +31,7 @@ class InMemoryHistoryManagerTest {
         int result = 1;
         inMemoryHistoryManager.add(task);
         inMemoryHistoryManager.add(epic);
-        subTask = new SubTask("Text", "howToDo text", epic, Status.NEW);
+        subTask = new SubTask("SubTask", "howToDo SubTask text", epic, Status.NEW, 4);
         inMemoryHistoryManager.add(subTask);
         if(inMemoryHistoryManager.getHistory().get(0).equals(task)) {
             if(inMemoryHistoryManager.getHistory().get(1).equals(epic)) {
@@ -63,15 +63,6 @@ class InMemoryHistoryManagerTest {
         assertEquals(0, result, "Копии просмотренных задач не сохраняются в истории");
     }
 
-    @Test
-    public void historyEreseFirstTaskAfter10Tasks() {
-        int i = 0;
-        while (i < 11) {
-            inMemoryHistoryManager.add(task);
-            i++;
-        }
-        assertEquals(10,inMemoryHistoryManager.getHistory().size(), "История обновляется после 10 просмотров");
-    }
     @Test
     public void nullWritingInHistory() {
         inMemoryHistoryManager.add(null);

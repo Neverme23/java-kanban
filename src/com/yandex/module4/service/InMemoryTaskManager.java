@@ -4,10 +4,8 @@ import com.yandex.module4.model.Epic;
 import com.yandex.module4.model.Status;
 import com.yandex.module4.model.SubTask;
 import com.yandex.module4.model.Task;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
     private int countID = 1;
@@ -88,6 +86,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeAllTask() {
         tasks.clear();
+        historyManager.removeAllTask();
     }
 
     @Override
@@ -97,12 +96,14 @@ public class InMemoryTaskManager implements TaskManager {
             changeStatus(epic);
         }
         subTasks.clear();
+        historyManager.removeAllSubTask();
     }
 
     @Override
     public void removeAllEpic() {
         subTasks.clear();
         epics.clear();
+        historyManager.removeAllEpic();
     }
 
     @Override
@@ -128,11 +129,13 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeTaskWithID(int id) {
+        historyManager.remove(id);
         tasks.remove(id);
     }
 
     @Override
     public void removeSubTaskWithID(int id) {
+        historyManager.remove(id);
         final SubTask subTask = subTasks.remove(id);
         final Epic epic = epics.get(subTask.getEpic());
         epic.getTasks().remove((Integer) id);
@@ -143,8 +146,10 @@ public class InMemoryTaskManager implements TaskManager {
     public void removeEpicWithID(int id) {
         for (int i : epics.get(id).getTasks()) {
             subTasks.remove(i);
+            historyManager.remove(i);
         }
         epics.remove(id);
+        historyManager.remove(id);
     }
 
     @Override
