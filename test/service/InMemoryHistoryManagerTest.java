@@ -28,40 +28,27 @@ class InMemoryHistoryManagerTest {
 
     @Test
     public void getHistory3valueTest() {
-        int result = 1;
         inMemoryHistoryManager.add(task);
         inMemoryHistoryManager.add(epic);
         subTask = new SubTask("SubTask", "howToDo SubTask text", epic, Status.NEW, 4);
         inMemoryHistoryManager.add(subTask);
-        if (inMemoryHistoryManager.getHistory().get(0).equals(task)) {
-            if (inMemoryHistoryManager.getHistory().get(1).equals(epic)) {
-                if (inMemoryHistoryManager.getHistory().get(2).equals(subTask)) {
-                    result = 0;
-                }
-            }
-        }
-        assertEquals(0, result, "Задачи не попадают в список истории просмотров корректно");
+        assertEquals(task, inMemoryHistoryManager.getHistory().get(0), "Task не попадают в список истории просмотров корректно");
+        assertEquals(epic, inMemoryHistoryManager.getHistory().get(1), "Epic не попадают в список истории просмотров корректно");
+        assertEquals(subTask, inMemoryHistoryManager.getHistory().get(2), "SubTask не попадают в список истории просмотров корректно");
     }
 
     @Test
     public void getHistoryTest() {
-        int result = 1;
         inMemoryHistoryManager.add(task);
-        if (inMemoryHistoryManager.getHistory().get(0).equals(task)) {
-            result = 0;
-        }
-        assertEquals(0, result, "Задачи не попадают в список истории просмотров корректно");
+        assertEquals(task,inMemoryHistoryManager.getHistory().get(0),  "Задачи не попадают в список истории просмотров корректно");
     }
 
     @Test
     public void oldVersionTaskInHistoryTest() {
-        int result = 1;
         inMemoryHistoryManager.add(task);
         inMemoryHistoryManager.add(task1);
-        if (inMemoryHistoryManager.getHistory().get(0).equals(task)) {
-            result = 0;
-        }
-        assertEquals(0, result, "Копии просмотренных задач не сохраняются в истории");
+        inMemoryHistoryManager.add(task);
+        assertEquals(task, inMemoryHistoryManager.getHistory().get(1), "Копии просмотренных задач не сохраняются в истории");
     }
 
     @Test

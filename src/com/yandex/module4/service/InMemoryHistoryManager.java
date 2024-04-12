@@ -18,14 +18,13 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     public void linkLast(Task task) {
-        int startCount = 0;
-        Node<Task> node = new Node<>(task, this.last);
-        if (last != null) {
-            last.setNextNode(node);
-        }
-        last = node;
-        if (historyNode.size() == startCount) {
+        Node<Task> node = new Node<>(task, last);
+        if (last == null) {
             first = node;
+            last = node;
+        } else {
+            last.setNextNode(node);
+            last = node;
         }
     }
 
@@ -48,18 +47,10 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (last == null || first == null) {
             return result;
         }
-        int count = 0;
         Node<Task> node = first;
-        Task task = node.getData();
-        result.add(task);
-        last.getData();
-        while (result.get(count) != last.getData()) {
-            if ((node = node.getNext()) == null) {
-                break;
-            }
-            task = node.getData();
-            result.add(task);
-            count++;
+        while (node != null) {
+            result.add(node.getData());
+            node = node.getNext();
         }
         return result;
     }
@@ -71,40 +62,32 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (prev != null) {
             prev.setNextNode(node.getNext());
         }
-
         if (next != null) {
-            next.setPrevNode(node.getPrev());
+            if (node == first) {
+                first = node.getNext();
+            } else {
+                if (node == last) {
+                    last = node.getPrev();
+                }
+                next.setPrevNode(node.getPrev());
+            }
         }
         historyNode.remove(node.getData().getId());
     }
 
     @Override
     public void remove(int id) {
-        Node<Task> node = historyNode.get(id);
-        if (node == first) {
-            first = node.getNext();
-        }
-        removeNode(node);
+        removeNode(historyNode.get(id));
     }
 
     @Override
     public void removeAllEpic() {
-        Node<Task> nodeForRemove = null;
-        boolean isComplite = true;
-        OUTER:
-        while (isComplite) {
-            isComplite = false;
-            INNER:
-            for (Node<Task> node : historyNode.values()) {
-                if (node.getData().getClass() == Epic.class) {
-                    nodeForRemove = node;
-                    isComplite = true;
-                    break INNER;
-                }
-            }
-            if (nodeForRemove != null) {
+        Node<Task> nodeForRemove = first;
+        while (nodeForRemove != null) {
+            if (nodeForRemove.getData().getClass() == Epic.class) {
                 removeNode(nodeForRemove);
             }
+            nodeForRemove = nodeForRemove.getNext();
         }
         if (historyNode.isEmpty()) {
             first = null;
@@ -113,19 +96,12 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void removeAllTask() {
-        Node<Task> nodeForRemove = null;
-        boolean isComplite = true;
-        while (isComplite) {
-            isComplite = false;
-            for (Node<Task> node : historyNode.values()) {
-                if (node.getData().getClass() == Task.class) {
-                    nodeForRemove = node;
-                    isComplite = true;
-                }
-            }
-            if (nodeForRemove != null) {
+        Node<Task> nodeForRemove = first;
+        while (nodeForRemove != null) {
+            if (nodeForRemove.getData().getClass() == Task.class) {
                 removeNode(nodeForRemove);
             }
+            nodeForRemove = nodeForRemove.getNext();
         }
         if (historyNode.isEmpty()) {
             first = null;
@@ -134,19 +110,12 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void removeAllSubTask() {
-        Node<Task> nodeForRemove = null;
-        boolean isComplite = true;
-        while (isComplite) {
-            isComplite = false;
-            for (Node<Task> node : historyNode.values()) {
-                if (node.getData().getClass() == SubTask.class) {
-                    nodeForRemove = node;
-                    isComplite = true;
-                }
-            }
-            if (nodeForRemove != null) {
+        Node<Task> nodeForRemove = first;
+        while (nodeForRemove != null) {
+            if (nodeForRemove.getData().getClass() == Task.class) {
                 removeNode(nodeForRemove);
             }
+            nodeForRemove = nodeForRemove.getNext();
         }
         if (historyNode.isEmpty()) {
             first = null;

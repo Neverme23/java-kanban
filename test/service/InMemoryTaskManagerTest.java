@@ -79,18 +79,11 @@ class InMemoryTaskManagerTest {
 
     @Test
     public void checkTaskConstantTest() {
-        int result = 1;
         inMemoryTaskManager.addTask(task);
-        if (inMemoryTaskManager.getTaskWithID(task.getId()).getName().equals(task.getName())) {
-            if (inMemoryTaskManager.getTaskWithID(task.getId()).getHowToDo().equals(task.getHowToDo())) {
-                if (inMemoryTaskManager.getTaskWithID(task.getId()).getId() == task.getId()) {
-                    if (inMemoryTaskManager.getTaskWithID(task.getId()).getStatus() == task.getStatus()) {
-                        result = 0;
-                    }
-                }
-            }
-        }
-        assertEquals(0, result, "Задачи не меняются");
+        assertEquals(task.getName(), inMemoryTaskManager.getTaskWithID(task.getId()).getName(), "name не конфликтует");
+        assertEquals(task.getHowToDo(), inMemoryTaskManager.getTaskWithID(task.getId()).getHowToDo(), "howToDo не конфликтует");
+        assertEquals(task.getId(), inMemoryTaskManager.getTaskWithID(task.getId()).getId(), "id не конфликтует");
+        assertEquals(task.getStatus(), inMemoryTaskManager.getTaskWithID(task.getId()).getStatus(), "status не конфликтует");
     }
 
     @Test
