@@ -1,34 +1,136 @@
 package com.yandex.module4.service;
 
+import com.yandex.module4.model.Epic;
+import com.yandex.module4.model.SubTask;
 import com.yandex.module4.model.Task;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private final List<Task> historyTasks;
-    private final static int MAX_VALUE = 10;
+    private Node<Task> first = null;
+    private Node<Task> last = null;
+
+    private final Map<Integer, Node<Task>> historyNode;
 
 
-    InMemoryHistoryManager(){
-        historyTasks = new LinkedList<>();
+    InMemoryHistoryManager() {
+        historyNode = new HashMap<>();
     }
-    @Override
-    public void add(Task task) {
-        if (task != null) {
-            historyTasks.add(task);
-            checkHistory();
+
+    public void linkLast(Task task) {
+        Node<Task> node = new Node<>(task, last);
+        if (last == null) {
+            first = node;
+            last = node;
+        } else {
+            last.setNextNode(node);
+            last = node;
         }
     }
+
+    @Override
+    public void add(Task task) {
+        if (task == null) {
+            return;
+        }
+        linkLast(task);
+        if (historyNode.containsKey(task.getId())) {
+            remove(task.getId());
+        }
+        historyNode.put(task.getId(), last);
+    }
+
 
     @Override
     public List<Task> getHistory() {
-        return List.copyOf(historyTasks);
+        ArrayList<Task> result = new ArrayList<>();
+        if (last == null || first == null) {
+            return result;
+        }
+        Node<Task> node = first;
+        while (node != null) {
+            result.add(node.getData());
+            node = node.getNext();
+        }
+        return result;
     }
-    public void checkHistory() {
-        if (historyTasks.size() > MAX_VALUE) {
-            historyTasks.remove(0);
+
+    @Override
+    public void removeNode(Node<Task> node) {
+        Node<Task> prev = node.getPrev();
+        Node<Task> next = node.getNext();
+        if (prev != null) {
+            prev.setNextNode(node.getNext());
+        }
+        if (next != null) {
+            if (node == first) {
+                first = node.getNext();
+                first.setPrevNode(null);
+            } else {
+                if (node == last) {
+                    last = node.getPrev();
+                    last.setNextNode(null);
+                }
+                next.setPrevNode(node.getPrev());
+            }
+        } else if (prev == null) {
+            first = null;
+            last = null;
+        }
+        historyNode.remove(node.getData().getId());
+    }
+
+    @Override
+    public void remove(int id) {
+        Node<Task> node = historyNode.get(id);
+        if (node != null) {
+            removeNode(historyNode.get(id));
+        }
+    }
+
+    @Override
+    public void removeAllEpic() {
+        Node<Task> nodeForRemove = first;
+        while (nodeForRemove != null) {
+            if (nodeForRemove.getData().getClass() == Epic.class) {
+                removeNode(nodeForRemove);
+            }
+            nodeForRemove = nodeForRemove.getNext();
+        }
+        if (historyNode.isEmpty()) {
+            first = null;
+        }
+    }
+
+    @Override
+    public void removeAllTask() {
+        Node<Task> nodeForRemove = first;
+        while (nodeForRemove != null) {
+            if (nodeForRemove.getData().getClass() == Task.class) {
+                removeNode(nodeForRemove);
+            }
+            nodeForRemove = nodeForRemove.getNext();
+        }
+        if (historyNode.isEmpty()) {
+            first = null;
+        }
+    }
+
+    @Override
+    public void removeAllSubTask() {
+        Node<Task> nodeForRemove = first;
+        while (nodeForRemove != null) {
+            if (nodeForRemove.getData().getClass() == SubTask.class) {
+                removeNode(nodeForRemove);
+            }
+            nodeForRemove = nodeForRemove.getNext();
+        }
+        if (historyNode.isEmpty()) {
+            first = null;
         }
     }
 }
+
+
+
 

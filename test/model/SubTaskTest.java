@@ -14,7 +14,7 @@ class SubTaskTest {
         SubTask subTask = new SubTask("Text", "howToDo text", epic, Status.NEW, 5);
         SubTask subTask1 = new SubTask("Text1", "howToDo text1", epic, Status.NEW, 5);
         int result = 1;
-        if(subTask.equals(subTask1)){
+        if (subTask.equals(subTask1)) {
             result = 0;
         }
         assertEquals(0, result, "Задачи не совпадают по ID");
