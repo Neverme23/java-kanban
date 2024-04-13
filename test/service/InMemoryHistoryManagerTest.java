@@ -56,4 +56,10 @@ class InMemoryHistoryManagerTest {
         inMemoryHistoryManager.add(null);
         assertEquals(0, inMemoryHistoryManager.getHistory().size(), "Null записывается в список историй");
     }
+    @Test
+    public void lastTaskInHistoryDelete () {
+        inMemoryHistoryManager.add(task);
+        inMemoryHistoryManager.remove(task.getId());
+        assertEquals(0, inMemoryHistoryManager.getHistory().size(), "Задачи удаляются неправильно" );
+    }
 }
