@@ -65,19 +65,27 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (next != null) {
             if (node == first) {
                 first = node.getNext();
+                first.setPrevNode(null);
             } else {
                 if (node == last) {
                     last = node.getPrev();
+                    last.setNextNode(null);
                 }
                 next.setPrevNode(node.getPrev());
             }
+        } else if (prev == null) {
+            first = null;
+            last = null;
         }
         historyNode.remove(node.getData().getId());
     }
 
     @Override
     public void remove(int id) {
-        removeNode(historyNode.get(id));
+        Node <Task> node = historyNode.get(id);
+        if (node != null) {
+            removeNode(historyNode.get(id));
+        }
     }
 
     @Override

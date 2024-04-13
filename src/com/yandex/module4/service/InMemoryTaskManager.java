@@ -103,6 +103,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void removeAllEpic() {
         subTasks.clear();
         epics.clear();
+        historyManager.removeAllSubTask();
         historyManager.removeAllEpic();
     }
 
