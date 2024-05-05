@@ -17,6 +17,7 @@ public class SubTask extends Task {
         super(name, howToDo, status, id);
         this.epic = epic.getId();
     }
+
     public int getEpic() {
         return epic;
     }
