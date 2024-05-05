@@ -18,7 +18,7 @@ public final class Managers {
 
     public static FileBackedTaskManager getFileBackerTaskManager() {
         Path path = Paths.get("Tasks.txt");
-        if(Files.exists(path)) {
+        if (Files.exists(path)) {
             return FileBackedTaskManager.loadFromFile(path.toFile());
         } else {
             return new FileBackedTaskManager(path);
