@@ -1,15 +1,22 @@
 package com.yandex.module4.model;
 
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 public class Task {
     private String name;
     private String howToDo;
     private int id;
     private Status status;
+    private Duration duration;
+    private LocalDateTime startTime;
 
-    public Task(String name, String howToDo) {
+    public Task(String name, String howToDo, Duration duration, LocalDateTime startTime) {
         this.name = name;
         this.howToDo = howToDo;
+        this.duration = duration;
+        this.startTime = startTime;
         this.status = Status.NEW;
     }
 
@@ -18,16 +25,20 @@ public class Task {
         this.howToDo = task.howToDo;
         this.status = task.status;
         this.id = task.id;
+        this.duration = task.duration;
+        this.startTime = task.startTime;
     }
 
-    public Task(String name, String howToDo, Status status) {
+    public Task(String name, String howToDo, Status status,Duration duration, LocalDateTime startTime) {
         this.name = name;
         this.howToDo = howToDo;
+        this.startTime = startTime;
         this.status = status;
+        this.duration = duration;
     }
 
-    public Task(String name, String howToDo, Status status, int id) {
-        this(name, howToDo, status);
+    public Task(String name, String howToDo, Status status, int id, Duration duration, LocalDateTime startTime) {
+        this(name, howToDo,status,duration, startTime);
         this.id = id;
     }
 
@@ -85,4 +96,20 @@ public class Task {
     public int hashCode() {
         return 29 * id;
     }
+    public LocalDateTime getEndTime() {
+        return startTime.plus(duration);
+    }
+    public Duration getDuration() {
+        return duration;
+    }
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+    public LocalDateTime getStartTime() {
+        return this.startTime;
+    }
+
 }

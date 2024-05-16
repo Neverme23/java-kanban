@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Month;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -22,16 +25,19 @@ public class FileBackedTaskManagerTest {
     @BeforeEach
     public void beforeEach() {
         fileBackedTaskManager = new FileBackedTaskManager(Paths.get("Tasks.txt"));
-        task = new Task("TASK", "howToDo text", Status.NEW);
-        task1 = new Task("TASK11111", "howToDo text111", Status.NEW);
-        epic = new Epic("EPIC", "howToDo text");
+        task = new Task("TASK", "howToDo text", Status.NEW, Duration.ofMinutes(55L), LocalDateTime.now());
+        task1 = new Task("TASK11111", "howToDo text111", Status.NEW, Duration.ofMinutes(55L),
+                LocalDateTime.of(1999, Month.JUNE, 5, 1, 14));
+        epic = new Epic("EPIC", "howToDo text", Status.NEW, 5, Duration.ZERO,
+                LocalDateTime.of(1992, Month.NOVEMBER, 4, 2, 12),
+                LocalDateTime.of(1993, Month.NOVEMBER, 4, 2, 12));
     }
 
     @Test
     public void addTaskTest() {
         int result = 1;
         fileBackedTaskManager.addTask(task);
-        if (fileBackedTaskManager.getTaskWithID(task.getId()).equals(task)) {
+        if (fileBackedTaskManager.getTaskWithID(task.getId()).get().equals(task)) {
             result = 0;
         }
         assertEquals(0, result, "Задача не добавлена");
