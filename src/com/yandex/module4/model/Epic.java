@@ -8,7 +8,6 @@ import java.util.List;
 public class Epic extends Task {
     private final List<Integer> tasks;
 
-
     private LocalDateTime endTime;
 
     public Epic(String name, String howToDo) {
@@ -20,10 +19,12 @@ public class Epic extends Task {
         super(name, howToDo, status, id, Duration.ZERO, null);
         tasks = new ArrayList<>();
     }
+
     public Epic(String name, String howToDo, Status status, int id, LocalDateTime startTime, Duration duration) {
         super(name, howToDo, status, id, duration, startTime);
         tasks = new ArrayList<>();
     }
+
     public Epic(String name, String howToDo, Status status, LocalDateTime startTime, Duration duration) {
         super(name, howToDo, status, duration, startTime);
         tasks = new ArrayList<>();
@@ -42,10 +43,12 @@ public class Epic extends Task {
     public void addTask(SubTask subTask) {
         tasks.add(subTask.getId());
     }
+
     @Override
     public LocalDateTime getEndTime() {
         return this.endTime;
     }
+
     public void setEndTime(LocalDateTime localDateTime) {
         this.endTime = localDateTime;
     }
