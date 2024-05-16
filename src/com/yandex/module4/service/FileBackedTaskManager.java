@@ -75,7 +75,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         save();
     }
 
-
     @Override
     public void changeTask(Task task) {
         super.changeTask(task);
@@ -145,7 +144,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                     + "," + e.getTasks().toString() + "," + e.getDuration().toMinutes() + "," + e.getStartTime().format(formatter) + "," + e.getEndTime().format(formatter);
         }
     }
-
 
     public Task fromString(String task) {
         String[] textTask = task.split(",");

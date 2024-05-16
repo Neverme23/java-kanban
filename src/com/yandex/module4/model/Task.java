@@ -96,18 +96,23 @@ public class Task {
     public int hashCode() {
         return 29 * id;
     }
+
     public LocalDateTime getEndTime() {
         return startTime.plus(duration);
     }
+
     public Duration getDuration() {
         return duration;
     }
+
     public void setDuration(Duration duration) {
         this.duration = duration;
     }
+
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
+
     public LocalDateTime getStartTime() {
         return this.startTime;
     }
