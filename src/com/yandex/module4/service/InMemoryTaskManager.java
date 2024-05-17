@@ -195,9 +195,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeEpicWithID(int id) {
-        epics.get(id).getTasks().stream().forEach(integer -> {
-            subTasks.remove(integer);
-            historyManager.remove(integer);
+        epics.get(id).getTasks().stream().forEach(subTaskID -> {
+            subTasks.remove(subTaskID);
+            historyManager.remove(subTaskID);
         });
         epics.remove(id);
         historyManager.remove(id);
@@ -207,8 +207,8 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public List<SubTask> getEpicTasks(int id) {
         ArrayList<SubTask> st = new ArrayList<>();
-        epics.get(id).getTasks().stream().forEach(integer ->
-                st.add(subTasks.get(integer))
+        epics.get(id).getTasks().stream().forEach(subTaskID ->
+                st.add(subTasks.get(subTaskID))
         );
         return st;
     }
@@ -244,16 +244,16 @@ public class InMemoryTaskManager implements TaskManager {
 
     public void changeEpicDuration(Epic epic) {
         epic.setDuration(Duration.ZERO);
-        epic.getTasks().stream().forEach(integer -> {
-            SubTask st = subTasks.get(integer);
+        epic.getTasks().stream().forEach(subTaskID -> {
+            SubTask st = subTasks.get(subTaskID);
             epic.setDuration(epic.getDuration().plus(st.getDuration()));
         });
     }
 
     public void changeEpicStartTime(Epic epic) {
         epic.setStartTime(LocalDateTime.MAX);
-        epic.getTasks().stream().forEach(integer -> {
-            SubTask st = subTasks.get(integer);
+        epic.getTasks().stream().forEach(subTaskID -> {
+            SubTask st = subTasks.get(subTaskID);
             if (epic.getStartTime().isAfter(st.getStartTime())) {
                 epic.setStartTime(st.getStartTime());
             }
@@ -262,8 +262,8 @@ public class InMemoryTaskManager implements TaskManager {
 
     public void changeEpicEndTime(Epic epic) {
         epic.setEndTime(LocalDateTime.MIN);
-        epic.getTasks().stream().forEach(integer -> {
-            SubTask st = subTasks.get(integer);
+        epic.getTasks().stream().forEach(subTaskID -> {
+            SubTask st = subTasks.get(subTaskID);
             if (epic.getEndTime().isBefore(st.getEndTime())) {
                 epic.setEndTime(st.getEndTime());
             }
