@@ -6,7 +6,6 @@ import com.yandex.module4.model.SubTask;
 import com.yandex.module4.model.Task;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class EpicTest {

@@ -4,6 +4,7 @@ import com.yandex.module4.model.Epic;
 import com.yandex.module4.model.SubTask;
 import com.yandex.module4.model.Task;
 import java.util.List;
+import java.util.Optional;
 
 
 public interface TaskManager {
@@ -29,11 +30,11 @@ public interface TaskManager {
 
     void removeAllSubTask();
 
-    Task getTaskWithID(int id);
+    Optional<Task> getTaskWithID(int id);
 
-    SubTask getSubTaskWithID(int id);
+    Optional<SubTask> getSubTaskWithID(int id);
 
-    Epic getEpicWithID(int id);
+    Optional<Epic> getEpicWithID(int id);
 
     void removeTaskWithID(int id);
 
